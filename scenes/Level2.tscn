@@ -1,0 +1,98 @@
+[gd_scene load_steps=11 format=3 uid="uid://cnsu6basm4r6h"]
+
+[ext_resource type="Script" uid="uid://d3un6fc35lmlx" path="res://scripts/Main.gd" id="1_main_script"]
+[ext_resource type="PackedScene" uid="uid://b8j2x4q8y501" path="res://scenes/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://h5u4d3s2c1n0" path="res://scenes/HUD.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://checkpoint001" path="res://scenes/Checkpoint.tscn" id="5_checkpoint"]
+[ext_resource type="PackedScene" uid="uid://g4o8l3a2y105" path="res://scenes/Goal.tscn" id="6_goal"]
+[ext_resource type="PackedScene" uid="uid://jm7oydmnnvoe" path="res://scenes/FallingSpike.tscn" id="8_falling_spike"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_long"]
+size = Vector2(6000, 40)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_long"]
+size = Vector2(6000, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qwp14"]
+size = Vector2(400, 40)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_xpq2v"]
+size = Vector2(400, 40)
+
+[node name="Level2" type="Node2D"]
+script = ExtResource("1_main_script")
+level_id = 2
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.2, 0, 0.1, 1)
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="FloorMain" type="StaticBody2D" parent="Level"]
+position = Vector2(3501, 580)
+scale = Vector2(0.16000003, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/FloorMain"]
+shape = SubResource("RectangleShape2D_long")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/FloorMain"]
+modulate = Color(0.4, 0.2, 0.2, 1)
+texture = SubResource("PlaceholderTexture2D_long")
+
+[node name="Checkpoint1" parent="." instance=ExtResource("5_checkpoint")]
+position = Vector2(3500, 560)
+
+[node name="FallingSpikes" type="Node2D" parent="."]
+rotation = 3.14159
+
+[node name="FallingSpike2" parent="FallingSpikes" instance=ExtResource("8_falling_spike")]
+position = Vector2(4200, -100)
+rotation = 3.14159
+
+[node name="FallingSpike3" parent="FallingSpikes" instance=ExtResource("8_falling_spike")]
+position = Vector2(4400, 0)
+rotation = 3.14159
+
+[node name="FallingSpike4" parent="FallingSpikes" instance=ExtResource("8_falling_spike")]
+position = Vector2(4600, -100)
+rotation = 3.14159
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(100, 500)
+
+[node name="Goal" parent="." instance=ExtResource("6_goal")]
+position = Vector2(5500, 550)
+
+[node name="SampleFloor" type="StaticBody2D" parent="."]
+position = Vector2(1490, -192)
+scale = Vector2(7.4577336, 1.0408372)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SampleFloor"]
+shape = SubResource("RectangleShape2D_qwp14")
+
+[node name="Sprite2D" type="Sprite2D" parent="SampleFloor"]
+modulate = Color(0.4, 0.4, 0.4, 1)
+texture = SubResource("PlaceholderTexture2D_xpq2v")
+
+[node name="SampleFloor2" type="StaticBody2D" parent="."]
+position = Vector2(5494, 58.00006)
+scale = Vector2(7.4577336, 1.0408372)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SampleFloor2"]
+shape = SubResource("RectangleShape2D_qwp14")
+
+[node name="Sprite2D" type="Sprite2D" parent="SampleFloor2"]
+modulate = Color(0.4, 0.4, 0.4, 1)
+texture = SubResource("PlaceholderTexture2D_xpq2v")
+
+[connection signal="checkpoint_reached" from="Checkpoint1" to="." method="_on_checkpoint_reached"]

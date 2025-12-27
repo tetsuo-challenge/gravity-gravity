@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cyhmarubtsfw4"]
+[gd_scene load_steps=12 format=3 uid="uid://c5k8xax2y403"]
 
 [ext_resource type="Script" uid="uid://d3un6fc35lmlx" path="res://scripts/Main.gd" id="1_main_script"]
 [ext_resource type="PackedScene" uid="uid://b8j2x4q8y501" path="res://scenes/Player.tscn" id="2_player"]
@@ -137,28 +137,28 @@ offset_top = 450.0
 offset_right = 1600.0
 offset_bottom = 495.0
 theme_override_font_sizes/font_size = 32
-text = "SHIFT "
+text = "SHIFT"
 horizontal_alignment = 1
 
 [node name="Spikes" type="Node2D" parent="."]
 
 [node name="Spike" parent="Spikes" instance=ExtResource("4_spike")]
-position = Vector2(1305, 567)
+position = Vector2(1296, 565)
 
 [node name="Spike2" parent="Spikes" instance=ExtResource("4_spike")]
-position = Vector2(1345, 567)
+position = Vector2(1336, 565)
 
 [node name="Spike3" parent="Spikes" instance=ExtResource("4_spike")]
-position = Vector2(1385, 567)
+position = Vector2(1376, 565)
 
 [node name="Spike4" parent="Spikes" instance=ExtResource("4_spike")]
-position = Vector2(1425, 567)
+position = Vector2(1416, 565)
 
 [node name="Spike5" parent="Spikes" instance=ExtResource("4_spike")]
-position = Vector2(1465, 567)
+position = Vector2(1456, 565)
 
 [node name="Spike6" parent="Spikes" instance=ExtResource("4_spike")]
-position = Vector2(1505, 567)
+position = Vector2(1496, 565)
 
 [node name="MovingSpikes_Group" type="Node2D" parent="Spikes"]
 

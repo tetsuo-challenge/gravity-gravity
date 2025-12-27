@@ -33,6 +33,10 @@ func _ready():
 	# HUD初期化
 	hud.update_lives(lives)
 
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel"):
+		hud.toggle_pause()
+
 func register_player(player_node):
 	current_player = player_node
 	
@@ -49,13 +53,26 @@ func _on_player_gravity_changed(is_inverted: bool):
 	var tween = create_tween()
 	tween.tween_property(bg_rect, "color", target_color, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
 
+const RESULT_SCENE = preload("res://scenes/Result.tscn")
+
+# ... (rest of code)
+
+@export var level_id: int = 1
+
 func _on_player_reached_goal():
 	# プレイヤーの操作を停止
 	if current_player:
 		current_player.set_physics_process(false)
 	AudioManager.play_goal()
-	# HUD表示
-	hud.show_win()
+	
+	# レベルクリア扱い
+	Global.unlock_level(level_id)
+	
+	# 次のリザルト画面へ情報を渡せると良いが、今回はそこまで複雑にしない
+	var result = RESULT_SCENE.instantiate()
+	$HUD.add_child(result)
+
+
 
 func _on_player_died():
 	lives -= 1

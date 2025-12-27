@@ -1,0 +1,148 @@
+[gd_scene load_steps=11 format=3 uid="uid://dod7jsqftkg2t"]
+
+[ext_resource type="Script" uid="uid://d3un6fc35lmlx" path="res://scripts/Main.gd" id="1_main_script"]
+[ext_resource type="PackedScene" uid="uid://b8j2x4q8y501" path="res://scenes/Player.tscn" id="2_player"]
+[ext_resource type="PackedScene" uid="uid://h5u4d3s2c1n0" path="res://scenes/HUD.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://checkpoint001" path="res://scenes/Checkpoint.tscn" id="5_checkpoint"]
+[ext_resource type="PackedScene" uid="uid://g4o8l3a2y105" path="res://scenes/Goal.tscn" id="6_goal"]
+[ext_resource type="PackedScene" uid="uid://d3x8y501a2b4" path="res://scenes/Spike.tscn" id="7_spike"]
+[ext_resource type="PackedScene" uid="uid://d8j2x4bay1k2" path="res://scenes/MovingSpike.tscn" id="8_moving_spike"]
+[ext_resource type="PackedScene" uid="uid://jm7oydmnnvoe" path="res://scenes/FallingSpike.tscn" id="9_falling_spike"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(400, 40)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_floor"]
+size = Vector2(400, 40)
+
+[node name="Level3" type="Node2D"]
+script = ExtResource("1_main_script")
+level_id = 3
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.15, 0, 0.1, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="HUD" parent="." instance=ExtResource("3_hud")]
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="StartFloor" type="StaticBody2D" parent="Level"]
+position = Vector2(100, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/StartFloor"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/StartFloor"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+texture = SubResource("PlaceholderTexture2D_floor")
+
+[node name="FloorSpikes1" parent="Level" instance=ExtResource("7_spike")]
+position = Vector2(400, 620)
+
+[node name="FloorSpikes2" parent="Level" instance=ExtResource("7_spike")]
+position = Vector2(464, 620)
+
+[node name="FloorSpikes3" parent="Level" instance=ExtResource("7_spike")]
+position = Vector2(528, 620)
+
+[node name="Ceiling1" type="StaticBody2D" parent="Level"]
+position = Vector2(500, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ceiling1"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Ceiling1"]
+modulate = Color(0.6, 0.3, 0.3, 1)
+texture = SubResource("PlaceholderTexture2D_floor")
+
+[node name="CeilingSpike1" parent="Level" instance=ExtResource("7_spike")]
+position = Vector2(800, 120)
+rotation = 3.14159
+
+[node name="Platform2" type="StaticBody2D" parent="Level"]
+position = Vector2(1000, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform2"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform2"]
+modulate = Color(0.5, 0.5, 0.5, 1)
+texture = SubResource("PlaceholderTexture2D_floor")
+
+[node name="MovingSpike1" parent="Level" instance=ExtResource("8_moving_spike")]
+position = Vector2(1200, 500)
+
+[node name="MovingSpike2" parent="Level" instance=ExtResource("8_moving_spike")]
+position = Vector2(1400, 200)
+rotation = 3.14159
+
+[node name="Platform3_Up" type="StaticBody2D" parent="Level"]
+position = Vector2(2000, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform3_Up"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform3_Up"]
+modulate = Color(0.7, 0.2, 0.2, 1)
+texture = SubResource("PlaceholderTexture2D_floor")
+
+[node name="Platform4_Down" type="StaticBody2D" parent="Level"]
+position = Vector2(2500, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform4_Down"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform4_Down"]
+modulate = Color(0.2, 0.2, 0.7, 1)
+texture = SubResource("PlaceholderTexture2D_floor")
+
+[node name="Platform5_Up" type="StaticBody2D" parent="Level"]
+position = Vector2(3000, 100)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Platform5_Up"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Platform5_Up"]
+modulate = Color(0.7, 0.2, 0.2, 1)
+texture = SubResource("PlaceholderTexture2D_floor")
+
+[node name="MidSpike1" parent="Level" instance=ExtResource("7_spike")]
+position = Vector2(2250, 350)
+rotation = 1.5708
+
+[node name="FallingSpike1" parent="Level" instance=ExtResource("9_falling_spike")]
+position = Vector2(3400, 0)
+rotation = 3.14159
+
+[node name="FallingSpike2" parent="Level" instance=ExtResource("9_falling_spike")]
+position = Vector2(3600, -100)
+rotation = 3.14159
+
+[node name="FallingSpike3" parent="Level" instance=ExtResource("9_falling_spike")]
+position = Vector2(3800, -50)
+rotation = 3.14159
+
+[node name="Checkpoint1" parent="." instance=ExtResource("5_checkpoint")]
+position = Vector2(1600, 550)
+
+[node name="Checkpoint2" parent="." instance=ExtResource("5_checkpoint")]
+position = Vector2(3000, 150)
+rotation = 3.14159
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(100, 500)
+
+[node name="Goal" parent="." instance=ExtResource("6_goal")]
+position = Vector2(4000, 550)
+
+[connection signal="checkpoint_reached" from="Checkpoint1" to="." method="_on_checkpoint_reached"]
+[connection signal="checkpoint_reached" from="Checkpoint2" to="." method="_on_checkpoint_reached"]
