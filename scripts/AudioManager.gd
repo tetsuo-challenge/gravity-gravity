@@ -19,17 +19,17 @@ func _ready():
 	bgm_player = AudioStreamPlayer.new()
 	add_child(bgm_player)
 	
-	# プロシージャル音声の生成 (音量をさらに低減)
-	sfx_jump = _generate_tone(440, 880, 0.1, 0.05) 
-	sfx_switch = _generate_tone(300, 150, 0.2, 0.05) 
-	sfx_death = _generate_noise(0.5, 0.05) 
-	sfx_goal = _generate_tone(880, 1760, 0.6, 0.05, true) 
-	sfx_ui_select = _generate_tone(1200, 1200, 0.05, 0.02) 
-	sfx_ui_cancel = _generate_tone(300, 200, 0.1, 0.02) 
+	# プロシージャル音声の生成 (音量をさらに半分に低減)
+	sfx_jump = _generate_tone(440, 880, 0.1, 0.025) 
+	sfx_switch = _generate_tone(300, 150, 0.2, 0.025) 
+	sfx_death = _generate_noise(0.5, 0.025) 
+	sfx_goal = _generate_tone(880, 1760, 0.6, 0.025, true) 
+	sfx_ui_select = _generate_tone(1200, 1200, 0.05, 0.01) 
+	sfx_ui_cancel = _generate_tone(300, 200, 0.1, 0.01) 
 	
-	# プレイヤー自体の音量も大幅に下げる (-30dB)
-	sfx_player.volume_db = -30.0
-	bgm_player.volume_db = -35.0
+	# プレイヤー自体の音量もさらに下げる (-36dB: 半減)
+	sfx_player.volume_db = -36.0
+	bgm_player.volume_db = -41.0
 
 # --- 再生メソッド ---
 
