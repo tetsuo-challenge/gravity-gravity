@@ -1,0 +1,133 @@
+[gd_scene load_steps=9 format=3 uid="uid://c5k8w9x2y4z3"]
+
+[ext_resource type="Script" path="res://scripts/Main.gd" id="1_main_script"]
+[ext_resource type="PackedScene" uid="uid://d3x8y501a2b4" path="res://scenes/Spike.tscn" id="2_spike"]
+[ext_resource type="PackedScene" uid="uid://b8j2x4q8y5z1" path="res://scenes/Player.tscn" id="1_player"]
+[ext_resource type="PackedScene" uid="uid://g4o8l3a2y105" path="res://scenes/Goal.tscn" id="3_goal"]
+[ext_resource type="PackedScene" uid="uid://h5u4d3s2c1n0" path="res://scenes/HUD.tscn" id="4_hud"]
+[ext_resource type="PackedScene" uid="uid://d8j2x4a9y1k2" path="res://scenes/MovingSpike.tscn" id="5_moving_spike"]
+[ext_resource type="PackedScene" uid="uid://checkpoint001" path="res://scenes/Checkpoint.tscn" id="6_checkpoint"]
+[ext_resource type="PackedScene" uid="uid://jm7oydmnnvoe" path="res://scenes/FallingSpike.tscn" id="7_fallingspike"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_floor"]
+size = Vector2(4000, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ceiling"]
+size = Vector2(4000, 40)
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_wall"]
+size = Vector2(4000, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform"]
+size = Vector2(200, 40)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_main_script")
+
+[node name="BackgroundLayer" type="CanvasLayer" parent="."]
+layer = -100
+
+[node name="ColorRect" type="ColorRect" parent="BackgroundLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0.101961, 0.2, 1)
+
+[node name="HUD" parent="." instance=ExtResource("4_hud")]
+
+[node name="Level" type="Node2D" parent="."]
+
+[node name="Floor1" type="StaticBody2D" parent="Level"]
+position = Vector2(2000, 600)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Floor1"]
+shape = SubResource("RectangleShape2D_floor")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Floor1"]
+texture = SubResource("PlaceholderTexture2D_wall")
+modulate = Color(0.2, 0.2, 0.2, 1)
+
+[node name="Ceiling1" type="StaticBody2D" parent="Level"]
+position = Vector2(2000, 48)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/Ceiling1"]
+shape = SubResource("RectangleShape2D_ceiling")
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/Ceiling1"]
+texture = SubResource("PlaceholderTexture2D_wall")
+modulate = Color(0.2, 0.2, 0.2, 1)
+
+[node name="FloatingPlatform" type="StaticBody2D" parent="Level"]
+position = Vector2(1800, 300)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Level/FloatingPlatform"]
+shape = SubResource("RectangleShape2D_platform")
+debug_color = Color(0, 0.6, 0.7, 0.42)
+
+[node name="Sprite2D" type="Sprite2D" parent="Level/FloatingPlatform"]
+scale = Vector2(0.05, 1)
+texture = SubResource("PlaceholderTexture2D_wall")
+modulate = Color(0.3, 0.3, 0.4, 1)
+
+[node name="Spikes" type="Node2D" parent="."]
+
+[node name="Spike1" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(800, 564)
+
+[node name="Spike1_1" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(840, 564)
+
+[node name="Spike1_2" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(880, 564)
+
+[node name="Spike1_3" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(920, 564)
+
+[node name="Spike1_4" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(960, 564)
+
+[node name="Spike1_5" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(1000, 564)
+
+[node name="Spike2" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(1200, 84)
+rotation = 3.14159
+
+[node name="Spike3" parent="Spikes" instance=ExtResource("2_spike")]
+position = Vector2(2000, 564)
+
+[node name="MovingSpike1" parent="Spikes" instance=ExtResource("5_moving_spike")]
+position = Vector2(2500, 564)
+move_offset = Vector2(0, -300)
+duration = 1.5
+
+[node name="MovingSpike2" parent="Spikes" instance=ExtResource("5_moving_spike")]
+position = Vector2(3200, 84)
+rotation = 3.14159
+move_offset = Vector2(0, 300)
+duration = 1.0
+
+[node name="Checkpoint1" parent="." instance=ExtResource("6_checkpoint")]
+position = Vector2(1500, 580)
+
+[node name="Checkpoint2" parent="." instance=ExtResource("6_checkpoint")]
+position = Vector2(2000, 60)
+rotation = 3.14159
+
+[node name="FallingSpike1" parent="." instance=ExtResource("7_fallingspike")]
+position = Vector2(2300, 80)
+rotation = 3.14159
+
+[node name="FallingSpike2" parent="." instance=ExtResource("7_fallingspike")]
+position = Vector2(2400, 500)
+
+[node name="Goal" parent="." instance=ExtResource("3_goal")]
+position = Vector2(3800, 480)
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector2(100, 500)
+
+[connection signal="checkpoint_reached" from="Checkpoint1" to="." method="_on_checkpoint_reached"]
+[connection signal="checkpoint_reached" from="Checkpoint2" to="." method="_on_checkpoint_reached"]

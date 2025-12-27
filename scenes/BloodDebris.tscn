@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://c8j2x4q8y51a"]
+
+[ext_resource type="Script" path="res://scripts/BloodDebris.gd" id="1_script"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_sand"]
+friction = 1.0
+rough = true
+bounce = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_debris"]
+radius = 1.5
+
+[node name="BloodDebris" type="RigidBody2D"]
+collision_layer = 4
+collision_mask = 1
+mass = 0.1
+physics_material_override = SubResource("PhysicsMaterial_sand")
+gravity_scale = 1.0
+script = ExtResource("1_script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_debris")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+color = Color(0.8, 0, 0, 1)
+polygon = PackedVector2Array(-2, -2, 2, -2, 2, 2, -2, 2)

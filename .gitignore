@@ -1,0 +1,21 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+/ios/
+
+# Imported translations (automatically generated)
+*.translation
+
+# Mono/C# ignores
+.mono/
+.vscode/
+*.csproj
+*.sln
+
+# OS specific
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Artifacts
+.gemini/
